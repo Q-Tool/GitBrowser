@@ -7,8 +7,8 @@ const path = require('path')
 function createWindow () {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 1366,
+    height: 768,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: true,
@@ -20,7 +20,9 @@ function createWindow () {
   mainWindow.loadURL('http://localhost:3000')
 
   // Open the DevTools.
-  // mainWindow.webContents.openDevTools()
+   mainWindow.webContents.openDevTools({
+     mode: "detach"
+   })
 }
 
 // This method will be called when Electron has finished
@@ -28,7 +30,7 @@ function createWindow () {
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
   createWindow();
-  IPC.init(true);
+  IPC.init();
   
   app.on('activate', function () {
     // On macOS it's common to re-create a window in the app when the
