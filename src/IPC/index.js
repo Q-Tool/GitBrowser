@@ -1,8 +1,8 @@
 let ipcRenderer, ipcMain;
 
-if(process && process.type === 'browser'){
+if(process && process.type === 'browser'){ // Electron main process
     ipcMain = require('electron').ipcMain;
-} else {
+} else { // Electron Render Process
     ipcRenderer = window.require('electron').ipcRenderer;
 }
 
@@ -19,9 +19,9 @@ const IPCHandler = {
     IPCObj: {},
 
     // initializes the IPC's based on context
-    init: async (isMainThread = false) => {
-        this.isMainThread = isMainThread;
-        if(this.isMainThread){
+    init: async () => {
+        IPCHandler.isMainThread = process && process.type === 'browser';
+        if(IPCHandler.isMainThread){
             IPCHandler.IPCS.map(async (IPC) => {
                 IPCHandler.IPCObj[IPC] = require(`./${IPC}`);
 
@@ -33,7 +33,7 @@ const IPCHandler = {
     },
 
     call: async (name, args) => {
-        if(this.isMainThread && this.IPCObj[name]){
+        if(IPCHandler.isMainThread && IPCHandler.IPCObj[name]){
             return await IPCHandler.IPCObj[name](args);
         } else if(!this.isMainThread){
             return await ipcRenderer.invoke(name, JSON.stringify(args));
