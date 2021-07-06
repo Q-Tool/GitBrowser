@@ -13,7 +13,9 @@ const IPCHandler = {
     isMainThread: false,
 
     IPCS: [
-        "setMenu"
+        "setMenu",
+        "getStore",
+        "setStore"
     ],
 
     IPCObj: {},
