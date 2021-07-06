@@ -2,6 +2,7 @@ import './App.css'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import purple from '@material-ui/core/colors/purple';
 import store from "./IPC/client/store";
+import {view} from '@risingstack/react-easy-state'
 
 
 import Sidebar from "./Components/Sidebar";
@@ -44,4 +45,4 @@ class App extends Component{
     }
 }
 
-export default App;
+export default view(App);

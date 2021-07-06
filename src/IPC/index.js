@@ -6,16 +6,17 @@ if(process && process.type === 'browser'){ // Electron main process
     ipcRenderer = window.require('electron').ipcRenderer;
 }
 
-
-
-
 const IPCHandler = {
     isMainThread: false,
 
     IPCS: [
         "setMenu",
         "getStore",
-        "setStore"
+        "setStore",
+        "askWorkDir",
+        "cloneRepo",
+        "listRepos",
+        "getBranches"
     ],
 
     IPCObj: {},
