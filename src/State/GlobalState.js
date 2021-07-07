@@ -2,6 +2,7 @@ import {store as datastore} from '@risingstack/react-easy-state'
 import store from "../IPC/client/store";
 import IPC from '../IPC/index'
 import LoaderState from "./LoaderState";
+import language_identify from "../lib/language_identify";
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -15,6 +16,7 @@ const GlobalState = datastore({
     currentBranch: null,
     workdir: null,
     currentFile: null,
+    currentFileType: 'text',
     init: async() => {
         let workDir = await store.get('workdir');
         if(!workDir){
@@ -85,6 +87,7 @@ const GlobalState = datastore({
             GlobalState.currentFile = await IPC.getFileContent({
                 file: file
             });
+            GlobalState.currentFileType = language_identify(file).syntaxName;
         })
     }
 });

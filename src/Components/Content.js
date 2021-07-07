@@ -1,14 +1,13 @@
 import React from 'react'
 import {view} from '@risingstack/react-easy-state';
-import {Highlight as SyntaxHighlighter} from "react-fast-highlight";
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import GlobalState from "../State/GlobalState";
-import 'highlight.js/styles/atom-one-dark.css'
-import hljs from "highlight.js";
+import { darcula } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 const Content = () => {
     if(GlobalState.currentFile){
         return (
-            <SyntaxHighlighter className='code-view' languages={hljs.listLanguages()}>
+            <SyntaxHighlighter className='code-view' style={darcula} language={GlobalState.currentFileType}>
                 {GlobalState.currentFile}
             </SyntaxHighlighter>
         );
