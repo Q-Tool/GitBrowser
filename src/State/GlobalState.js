@@ -1,6 +1,7 @@
 import {store as datastore} from '@risingstack/react-easy-state'
 import store from "../IPC/client/store";
 import IPC from '../IPC/index'
+import LoaderState from "./LoaderState";
 
 const GlobalState = datastore({
     repos: [],
@@ -26,32 +27,42 @@ const GlobalState = datastore({
     },
     getRepos: async () => {
         if(GlobalState.repos.length === 0){
-            const repos = await IPC.call('listRepos', []);
-            GlobalState.repos = repos;
+            LoaderState.addLoader('Getting Repos', async () => {
+                const repos = await IPC.call('listRepos', []);
+                GlobalState.repos = repos;
+            });
         }
         return GlobalState.repos;
     },
     addRepo: async (url) => {
-        await IPC.call('cloneRepo', {repo: url});
-        GlobalState.repos = [];
-        await GlobalState.getRepos();
+        LoaderState.addLoader('Adding Repo', async() => {
+            await IPC.call('cloneRepo', {repo: url});
+            GlobalState.repos = [];
+            await GlobalState.getRepos();
+        });
     },
     setRepo: async (repo) => {
         if(repo){
-            GlobalState.currentRepo = repo;
-            await store.set('lastRepo', repo);
-            await GlobalState.getBranches();
+            LoaderState.addLoader('Setting Repo', async() => {
+                GlobalState.currentRepo = repo;
+                await store.set('lastRepo', repo);
+                await GlobalState.getBranches();
+            });
         }
     },
     getBranches: async () => {
-        const branchData = await IPC.call('getBranches', {repo: GlobalState.currentRepo});
-        GlobalState.branches = branchData.all;
-        GlobalState.currentBranch = branchData.current;
+        LoaderState.addLoader('Getting Branches', async () => {
+            const branchData = await IPC.call('getBranches', {repo: GlobalState.currentRepo});
+            GlobalState.branches = branchData.all;
+            GlobalState.currentBranch = branchData.current;
+        });
     },
     setBranch: async (branch) => {
         if(branch){
-            GlobalState.currentBranch = branch;
-            await IPC.call('gitCheckout', {repo: GlobalState.currentRepo, branch: branch});
+            LoaderState.addLoader('Setting Branch', async () => {
+                GlobalState.currentBranch = branch;
+                await IPC.call('gitCheckout', {repo: GlobalState.currentRepo, branch: branch});
+            });
         }
     }
 });

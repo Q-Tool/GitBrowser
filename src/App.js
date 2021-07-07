@@ -6,6 +6,7 @@ import {view} from '@risingstack/react-easy-state'
 
 
 import Sidebar from "./Components/Sidebar";
+import Loader from "./Components/Loader"
 import {Component} from "react";
 
 const theme = createMuiTheme({
@@ -40,6 +41,7 @@ class App extends Component{
                         </div>
                     </div>
                 </div>
+                <Loader />
             </ThemeProvider>
         );
     }
