@@ -12,7 +12,7 @@ const GlobalState = datastore({
     init: async() => {
         let workDir = await store.get('workdir');
         if(!workDir){
-            workDir = (await IPC.call('askWorkDir', [])).filePaths[0];
+            workDir = (await IPC.askWorkDir()).filePaths[0];
             await store.set('workdir', workDir);
         }
         GlobalState.workdir = workDir;
@@ -28,7 +28,7 @@ const GlobalState = datastore({
     getRepos: async () => {
         if(GlobalState.repos.length === 0){
             LoaderState.addLoader('Getting Repos', async () => {
-                const repos = await IPC.call('listRepos', []);
+                const repos = await IPC.listRepos();
                 GlobalState.repos = repos;
             });
         }
@@ -36,7 +36,7 @@ const GlobalState = datastore({
     },
     addRepo: async (url) => {
         LoaderState.addLoader('Adding Repo', async() => {
-            await IPC.call('cloneRepo', {repo: url});
+            await IPC.cloneRepo({repo: url});
             GlobalState.repos = [];
             await GlobalState.getRepos();
         });
@@ -52,7 +52,7 @@ const GlobalState = datastore({
     },
     getBranches: async () => {
         LoaderState.addLoader('Getting Branches', async () => {
-            const branchData = await IPC.call('getBranches', {repo: GlobalState.currentRepo});
+            const branchData = await IPC.getBranches({repo: GlobalState.currentRepo});
             GlobalState.branches = branchData.all;
             GlobalState.currentBranch = branchData.current;
         });
@@ -61,12 +61,10 @@ const GlobalState = datastore({
         if(branch){
             LoaderState.addLoader('Setting Branch', async () => {
                 GlobalState.currentBranch = branch;
-                await IPC.call('gitCheckout', {repo: GlobalState.currentRepo, branch: branch});
+                await IPC.gitCheckout({repo: GlobalState.currentRepo, branch: branch});
             });
         }
     }
 });
-
-GlobalState.init();
 
 export default GlobalState;

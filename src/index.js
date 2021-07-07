@@ -2,15 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import IPC from "./IPC";
-
-IPC.init();
-
-IPC.call('setMenu', [
-    { role: 'fileMenu' },
-    { role: 'editMenu' },
-    { role: 'viewMenu' }
-])
 
 ReactDOM.render(
   <React.StrictMode>

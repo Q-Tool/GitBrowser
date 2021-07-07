@@ -29,15 +29,23 @@ const IPCHandler = {
         if(IPCHandler.isMainThread){
             IPCHandler.IPCS.map(async (IPC) => {
                 IPCHandler.IPCObj[IPC] = require(`./${IPC}`);
-
+                IPCHandler[IPC] = async (args = {}) => {
+                    return await IPCHandler.call(IPC, args);
+                }
                 return ipcMain.handle(IPC, async(handle, args) => {
                     return await IPCHandler.IPCObj[IPC](JSON.parse(args));
                 })
             });
+        } else {
+            IPCHandler.IPCS.map(async (IPC) => {
+                IPCHandler[IPC] = async (args = {}) => {
+                    return await IPCHandler.call(IPC, args);
+                }
+            });
         }
     },
 
-    call: async (name, args) => {
+    call: async (name, args = {}) => {
         if(IPCHandler.isMainThread && IPCHandler.IPCObj[name]){
             return await IPCHandler.IPCObj[name](args);
         } else if(!this.isMainThread){

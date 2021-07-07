@@ -1,13 +1,14 @@
 import './App.css'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import purple from '@material-ui/core/colors/purple';
-import store from "./IPC/client/store";
 import {view} from '@risingstack/react-easy-state'
 
 
 import Sidebar from "./Components/Sidebar";
 import Loader from "./Components/Loader"
 import {Component} from "react";
+import IPC from "./IPC";
+import GlobalState from "./State/GlobalState";
 
 const theme = createMuiTheme({
     palette: {
@@ -24,8 +25,15 @@ const theme = createMuiTheme({
 class App extends Component{
 
     async componentDidMount(){
-        await store.set('test', '123');
-        console.log(await store.get('test'))
+        IPC.init();
+
+        IPC.setMenu([
+            { role: 'fileMenu' },
+            { role: 'editMenu' },
+            { role: 'viewMenu' }
+        ]);
+
+        GlobalState.init();
     }
 
     render() {

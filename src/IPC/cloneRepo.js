@@ -7,7 +7,7 @@ const cloneRepo = async (args) => {
     const repoParts = repoURLParts[repoURLParts.length - 1].split('.');
     const repoName = repoParts[0];
 
-    const workdir = await IPC.call('getStore', {key: 'workdir'});
+    const workdir = await IPC.getStore({key: 'workdir'});
     fs.mkdirSync(workdir, {recursive: true});
 
     const git = simpleGit(workdir);

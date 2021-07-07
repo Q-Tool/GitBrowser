@@ -5,7 +5,7 @@ const path = require('path');
 
 const getBranches = async (args) => {
     const repo = args.repo;
-    const workdir = await IPC.call('getStore', {key: 'workdir'});
+    const workdir = await IPC.getStore({key: 'workdir'});
     fs.mkdirSync(workdir, {recursive: true});
 
     const git = simpleGit(path.join(workdir, repo));
