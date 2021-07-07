@@ -4,10 +4,6 @@ import Autocomplete from '@material-ui/lab/Autocomplete'
 import GlobalState from "../State/GlobalState";
 import {view} from '@risingstack/react-easy-state'
 
-const mockGitBranches = [
-    'branch1', 'branch2', 'branch3'
-];
-
 class Sidebar extends Component{
 
     render(){
@@ -19,12 +15,16 @@ class Sidebar extends Component{
                         options={GlobalState.repos}
                         fullWidth
                         renderInput={(params => <TextField {...params} label='Git Repo' />)}
-                        onChange={(event) => GlobalState.setRepo(event.target.value)}
+                        value={GlobalState.currentRepo}
+                        onChange={(event, newValue) => GlobalState.setRepo(newValue)}
                     />
                     <Autocomplete
-                        options={mockGitBranches}
+                        options={GlobalState.branches}
                         fullWidth
+                        getOptionLabel={(option) => option.replace('remotes/origin/', '')}
+                        value={GlobalState.currentBranch}
                         renderInput={(params => <TextField {...params} label='Branch' />)}
+                        onChange={(event, newValue) => GlobalState.setBranch(newValue)}
                     />
                 </div>
             </>

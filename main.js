@@ -1,7 +1,7 @@
 // Modules to control application life and create native browser window
-const IPC = require('./src/IPC/index')
-const {app, BrowserWindow} = require('electron')
-const path = require('path')
+const IPC = require('./src/IPC/index');
+const {app, BrowserWindow} = require('electron');
+const path = require('path');
 
 
 function createWindow () {
@@ -29,8 +29,8 @@ function createWindow () {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
-  createWindow();
   IPC.init();
+  createWindow();
   
   app.on('activate', function () {
     // On macOS it's common to re-create a window in the app when the

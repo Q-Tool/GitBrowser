@@ -16,7 +16,9 @@ const IPCHandler = {
         "askWorkDir",
         "cloneRepo",
         "listRepos",
-        "getBranches"
+        "getBranches",
+        "repoStatus",
+        "gitCheckout"
     ],
 
     IPCObj: {},
