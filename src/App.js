@@ -9,6 +9,7 @@ import Loader from "./Components/Loader"
 import {Component} from "react";
 import IPC from "./IPC";
 import GlobalState from "./State/GlobalState";
+import Content from "./Components/Content";
 
 const theme = createMuiTheme({
     palette: {
@@ -44,8 +45,8 @@ class App extends Component{
                         <div>
                             <Sidebar />
                         </div>
-                        <div>
-                            test 2
+                        <div className='contentContainer'>
+                            <Content />
                         </div>
                     </div>
                 </div>

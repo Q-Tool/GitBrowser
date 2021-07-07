@@ -59,7 +59,7 @@ class SidebarDirectory extends Component {
             );
         } else {
             return (
-                <div className='sidebar-item sidebar-file'>
+                <div className='sidebar-item sidebar-file' onClick={() => GlobalState.getFileContents(obj.path)}>
                     <div className='sidebar-item-icon'><FileIcon /></div>
                     <div className='sidebar-item-name'>{obj.name}</div>
                 </div>

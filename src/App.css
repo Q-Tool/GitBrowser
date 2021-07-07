@@ -3,6 +3,7 @@ body {
     height: 100vh;
     padding: 0px;
     margin: 0px;
+    overflow: hidden;
 }
 #root {
     width: 100%;
@@ -49,4 +50,20 @@ body {
     flex-direction: row;
     align-items: center;
     color: #BBB;
+}
+
+.contentContainer{
+    min-height: 100%;
+    max-height: 100%;
+    min-width: 100%;
+    max-width: 100%;
+    overflow: auto;
+}
+
+.code-view{
+    overflow: auto;
+    min-height: 100%;
+    max-height: 100%;
+    min-width: 100%;
+    max-width: 100%;
 }

@@ -14,6 +14,7 @@ const GlobalState = datastore({
     currentRepo: null,
     currentBranch: null,
     workdir: null,
+    currentFile: null,
     init: async() => {
         let workDir = await store.get('workdir');
         if(!workDir){
@@ -76,6 +77,14 @@ const GlobalState = datastore({
     getFiles: async () => {
         LoaderState.addLoader('Getting File List',async () => {
             GlobalState.directoryTree = await IPC.getFileList({repo: GlobalState.currentRepo});
+            console.log(GlobalState.directoryTree)
+        })
+    },
+    getFileContents: async (file) => {
+        LoaderState.addLoader('Loading File', async () => {
+            GlobalState.currentFile = await IPC.getFileContent({
+                file: file
+            });
         })
     }
 });
