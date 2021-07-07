@@ -3,9 +3,14 @@ import store from "../IPC/client/store";
 import IPC from '../IPC/index'
 import LoaderState from "./LoaderState";
 
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 const GlobalState = datastore({
     repos: [],
     branches: [],
+    directoryTree: {},
     currentRepo: null,
     currentBranch: null,
     workdir: null,
@@ -22,7 +27,8 @@ const GlobalState = datastore({
         const lastRepo = await store.get('lastRepo');
         GlobalState.currentRepo = lastRepo ? lastRepo : null;
         if(GlobalState.currentRepo){
-            GlobalState.getBranches();
+            await GlobalState.getBranches();
+            await GlobalState.getFiles();
         }
     },
     getRepos: async () => {
@@ -47,6 +53,7 @@ const GlobalState = datastore({
                 GlobalState.currentRepo = repo;
                 await store.set('lastRepo', repo);
                 await GlobalState.getBranches();
+                await GlobalState.getFiles();
             });
         }
     },
@@ -62,8 +69,14 @@ const GlobalState = datastore({
             LoaderState.addLoader('Setting Branch', async () => {
                 GlobalState.currentBranch = branch;
                 await IPC.gitCheckout({repo: GlobalState.currentRepo, branch: branch});
+                await GlobalState.getFiles();
             });
         }
+    },
+    getFiles: async () => {
+        LoaderState.addLoader('Getting File List',async () => {
+            GlobalState.directoryTree = await IPC.getFileList({repo: GlobalState.currentRepo});
+        })
     }
 });
 

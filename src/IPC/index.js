@@ -18,7 +18,8 @@ const IPCHandler = {
         "listRepos",
         "getBranches",
         "repoStatus",
-        "gitCheckout"
+        "gitCheckout",
+        "getFileList"
     ],
 
     IPCObj: {},

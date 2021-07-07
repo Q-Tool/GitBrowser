@@ -3,14 +3,13 @@ import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete'
 import GlobalState from "../State/GlobalState";
 import {view} from '@risingstack/react-easy-state'
+import SidebarDirectory from "./SidebarDirectory";
 
-class Sidebar extends Component{
-
-    render(){
-        console.log(GlobalState.repos)
-        return (
-            <>
-                <div style={{color: '#FFF'}}>
+const Sidebar = () => {
+    return (
+        <>
+            <div className='sidebar' style={{color: '#FFF'}}>
+                <div className='sidebar-header'>
                     <Autocomplete
                         options={GlobalState.repos}
                         fullWidth
@@ -27,10 +26,12 @@ class Sidebar extends Component{
                         onChange={(event, newValue) => GlobalState.setBranch(newValue)}
                     />
                 </div>
-            </>
-        )
-    }
-
+                <div className='sidebar-content'>
+                    <SidebarDirectory expanded={true} />
+                </div>
+            </div>
+        </>
+    )
 }
 
 export default view(Sidebar);
