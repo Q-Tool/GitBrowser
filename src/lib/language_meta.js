@@ -1,4 +1,3 @@
-
 export default {
     abap: {
         name: "ABAP",
@@ -45,7 +44,7 @@ export default {
     apacheconf: {
         name: "ApacheConf",
         syntaxName: "apacheconf",
-        thumbnail: "",
+        thumbnail: "apache-plain",
         extensions: ['.conf', '.htaccess']
     },
     apl: {
@@ -57,7 +56,7 @@ export default {
     applescript: {
         name: "AppleScript",
         syntaxName: "applescript",
-        thumbnail: "",
+        thumbnail: "apple-original",
         extensions: ['.applescript']
     },
     aql: {
@@ -69,7 +68,7 @@ export default {
     arduino: {
         name: "Arduino",
         syntaxName: "arduino",
-        thumbnail: "",
+        thumbnail: "arduino-plain",
         extensions: ['.ino']
     },
     arff: {
@@ -93,7 +92,7 @@ export default {
     aspnet: {
         name: "ASP.NET",
         syntaxName: "aspnet",
-        thumbnail: "",
+        thumbnail: "dot-net-plain",
         extensions: ['.aspx']
     },
     autohotkey: {
@@ -111,7 +110,7 @@ export default {
     bash: {
         name: "Bash",
         syntaxName: "bash",
-        thumbnail: "",
+        thumbnail: "bash-plain",
         extensions: ['.sh']
     },
     basic: {
@@ -177,7 +176,7 @@ export default {
     c: {
         name: "C",
         syntaxName: "c",
-        thumbnail: "",
+        thumbnail: "c-plain",
         extensions: ['.c']
     },
     cil: {
@@ -195,7 +194,7 @@ export default {
     clojure: {
         name: "Clojure",
         syntaxName: "clojure",
-        thumbnail: "",
+        thumbnail: "clojure-line",
         extensions: ['.clj', '.cljs', '.cljc', '.edn']
     },
     cmake: {
@@ -207,7 +206,7 @@ export default {
     coffeescript: {
         name: "CoffeeScript",
         syntaxName: "coffeescript",
-        thumbnail: "",
+        thumbnail: "coffeescript-original",
         extensions: ['.coffee', '.litcoffee']
     },
     concurnas: {
@@ -219,19 +218,19 @@ export default {
     cpp: {
         name: "C++",
         syntaxName: "cpp",
-        thumbnail: "",
+        thumbnail: "cplusplus-plain",
         extensions: ['.cpp', '.h', '.hpp']
     },
     crystal: {
         name: "Crystal",
         syntaxName: "crystal",
-        thumbnail: "",
+        thumbnail: "crystal-original",
         extensions: ['.cr']
     },
     csharp: {
         name: "C#",
         syntaxName: "csharp",
-        thumbnail: "",
+        thumbnail: "csharp-plain",
         extensions: []
     },
     csp: {
@@ -243,13 +242,13 @@ export default {
     cssExtras: {
         name: "CSS Extras",
         syntaxName: "cssExtras",
-        thumbnail: "",
+        thumbnail: "css3-plain",
         extensions: []
     },
     css: {
         name: "CSS",
         syntaxName: "css",
-        thumbnail: "",
+        thumbnail: "css3-plain",
         extensions: ['.cs']
     },
     cypher: {
@@ -267,7 +266,7 @@ export default {
     dart: {
         name: "Dart",
         syntaxName: "dart",
-        thumbnail: "",
+        thumbnail: "dart-plain",
         extensions: ['.dart']
     },
     dax: {
@@ -291,7 +290,7 @@ export default {
     django: {
         name: "Django",
         syntaxName: "django",
-        thumbnail: "",
+        thumbnail: "django-plain",
         extensions: ['.djt']
     },
     dnsZoneFile: {
@@ -303,7 +302,7 @@ export default {
     docker: {
         name: "Dockerfile",
         syntaxName: "docker",
-        thumbnail: "",
+        thumbnail: "docker-plain",
         extensions: ['dockerfile']
     },
     ebnf: {
@@ -315,7 +314,7 @@ export default {
     editorconfig: {
         name: "EditorConfig",
         syntaxName: "editorconfig",
-        thumbnail: "",
+        thumbnail: "devicon-plain",
         extensions: ['.editorconfig']
     },
     eiffel: {
@@ -333,13 +332,13 @@ export default {
     elixir: {
         name: "Elixir",
         syntaxName: "elixir",
-        thumbnail: "",
+        thumbnail: "elixir-plain",
         extensions: ['.ex', '.exs']
     },
     elm: {
         name: "Elm",
         syntaxName: "elm",
-        thumbnail: "",
+        thumbnail: "elm-plain",
         extensions: ['.elm']
     },
     erb: {
@@ -351,13 +350,13 @@ export default {
     erlang: {
         name: "Erlang",
         syntaxName: "erlang",
-        thumbnail: "",
+        thumbnail: "erlang-plain",
         extensions: ['.erl', '.hrl']
     },
     etlua: {
         name: "ETLua",
         syntaxName: "etlua",
-        thumbnail: "",
+        thumbnail: "lua-plain",
         extensions: ['.lua']
     },
     excelFormula: {
@@ -393,7 +392,7 @@ export default {
     fsharp: {
         name: "F#",
         syntaxName: "fsharp",
-        thumbnail: "",
+        thumbnail: "fsharp-plain",
         extensions: ['.fs', '.fsi', '.fsx', '.fsscript']
     },
     ftl: {
@@ -423,7 +422,7 @@ export default {
     git: {
         name: "GIT",
         syntaxName: "git",
-        thumbnail: "",
+        thumbnail: "git-plain",
         extensions: ['.git']
     },
     glsl: {
@@ -441,19 +440,19 @@ export default {
     go: {
         name: "GoLang",
         syntaxName: "go",
-        thumbnail: "",
+        thumbnail: "go-plain",
         extensions: ['.go']
     },
     graphql: {
         name: "GraphQL",
         syntaxName: "graphql",
-        thumbnail: "",
+        thumbnail: "graphql-plain",
         extensions: ['.graphql', '.gql']
     },
     groovy: {
         name: "Groovy",
         syntaxName: "groovy",
-        thumbnail: "",
+        thumbnail: "groovy-plain",
         extensions: ['.groovy', '.gvy', '.gy', '.gsh']
     },
     haml: {
@@ -465,19 +464,19 @@ export default {
     handlebars: {
         name: "Handlebars",
         syntaxName: "handlebars",
-        thumbnail: "",
+        thumbnail: "handlebars-plain",
         extensions: ['.hb', '.handlebars']
     },
     haskell: {
         name: "Haskell",
         syntaxName: "haskell",
-        thumbnail: "",
+        thumbnail: "haskell-plain",
         extensions: ['.hs']
     },
     haxe: {
         name: "Haxe",
         syntaxName: "haxe",
-        thumbnail: "",
+        thumbnail: "haxe-plain",
         extensions: ['.hx', '.hxml']
     },
     hcl: {
@@ -507,7 +506,7 @@ export default {
     http: {
         name: "HTTP",
         syntaxName: "http",
-        thumbnail: "",
+        thumbnail: "html5-plain",
         extensions: ['.html', 'htm']
     },
     ichigojam: {
@@ -543,7 +542,7 @@ export default {
     ini: {
         name: "INI",
         syntaxName: "ini",
-        thumbnail: "",
+        thumbnail: "minitab-plain",
         extensions: ['.ini', '.inf']
     },
     io: {
@@ -561,31 +560,31 @@ export default {
     java: {
         name: "Java",
         syntaxName: "java",
-        thumbnail: "",
+        thumbnail: "java-plain",
         extensions: ['.java', '.jav']
     },
     javadoc: {
         name: "JavaDoc",
         syntaxName: "javadoc",
-        thumbnail: "",
+        thumbnail: "java-plain",
         extensions: []
     },
     javadoclike: {
         name: "Java Doc Like",
         syntaxName: "javadoclike",
-        thumbnail: "",
+        thumbnail: "java-plain",
         extensions: []
     },
     javascript: {
         name: "JavaScript",
         syntaxName: "javascript",
-        thumbnail: "",
+        thumbnail: "javascript-plain",
         extensions: ['.js']
     },
     javastacktrace: {
         name: "Java Stack Trace",
         syntaxName: "javastacktrace",
-        thumbnail: "",
+        thumbnail: "javascript-plain",
         extensions: []
     },
     jolie: {
@@ -603,55 +602,55 @@ export default {
     jsExtras: {
         name: "jsExtras",
         syntaxName: "jsExtras",
-        thumbnail: "",
+        thumbnail: "javascript-plain",
         extensions: []
     },
     jsTemplates: {
         name: "jsTemplates",
         syntaxName: "jsTemplates",
-        thumbnail: "",
+        thumbnail: "javascript-plain",
         extensions: []
     },
     jsdoc: {
         name: "jsDoc",
         syntaxName: "jsdoc",
-        thumbnail: "",
+        thumbnail: "javascript-plain",
         extensions: []
     },
     json: {
         name: "JSON",
         syntaxName: "json",
-        thumbnail: "",
+        thumbnail: "javascript-plain",
         extensions: ['.json']
     },
     json5: {
         name: "JSON5",
         syntaxName: "json5",
-        thumbnail: "",
+        thumbnail: "javascript-plain",
         extensions: ['.json5']
     },
     jsonp: {
         name: "JSONP",
         syntaxName: "jsonp",
-        thumbnail: "",
+        thumbnail: "javascript-plain",
         extensions: ['.jsonp']
     },
     jsstacktrace: {
         name: "JS Stack Trace",
         syntaxName: "jsstacktrace",
-        thumbnail: "",
+        thumbnail: "javascript-plain",
         extensions: []
     },
     jsx: {
         name: "JSX",
         syntaxName: "jsx",
-        thumbnail: "",
+        thumbnail: "react-original",
         extensions: ['.jsx', '.tsx']
     },
     julia: {
         name: "Julia",
         syntaxName: "julia",
-        thumbnail: "",
+        thumbnail: "julia-plain",
         extensions: ['.jl']
     },
     keyman: {
@@ -663,7 +662,7 @@ export default {
     kotlin: {
         name: "Kotlin",
         syntaxName: "kotlin",
-        thumbnail: "",
+        thumbnail: "kotlin-plain",
         extensions: ['.kt', '.kts', '.ktm']
     },
     latex: {
@@ -681,7 +680,7 @@ export default {
     less: {
         name: "LESS",
         syntaxName: "less",
-        thumbnail: "",
+        thumbnail: "less-plain-wordmark",
         extensions: ['.less']
     },
     lilypond: {
@@ -723,7 +722,7 @@ export default {
     lua: {
         name: "LUA",
         syntaxName: "lua",
-        thumbnail: "",
+        thumbnail: "lua-plain",
         extensions: ['.lua']
     },
     makefile: {
@@ -753,7 +752,7 @@ export default {
     matlab: {
         name: "MatLab",
         syntaxName: "matlab",
-        thumbnail: "",
+        thumbnail: "matlab-plain",
         extensions: ['.mat', '.m']
     },
     mel: {
@@ -777,7 +776,7 @@ export default {
     monkey: {
         name: "Monkey",
         syntaxName: "monkey",
-        thumbnail: "",
+        thumbnail: "mongodb-plain",
         extensions: []
     },
     moonscript: {
@@ -825,7 +824,7 @@ export default {
     nginx: {
         name: "NGINX",
         syntaxName: "nginx",
-        thumbnail: "",
+        thumbnail: "nginx-original",
         extensions: ['nginx.conf']
     },
     nim: {
@@ -849,13 +848,13 @@ export default {
     objectivec: {
         name: "Objective-C",
         syntaxName: "objectivec",
-        thumbnail: "",
+        thumbnail: "objectivec-plain",
         extensions: ['.m']
     },
     ocaml: {
         name: "Ocaml",
         syntaxName: "ocaml",
-        thumbnail: "",
+        thumbnail: "ocaml-plain",
         extensions: ['.ml']
     },
     opencl: {
@@ -909,25 +908,25 @@ export default {
     perl: {
         name: "PERL",
         syntaxName: "perl",
-        thumbnail: "",
+        thumbnail: "perl-plain",
         extensions: ['.pl', '.perl']
     },
     phpExtras: {
         name: "phpExtras",
         syntaxName: "phpExtras",
-        thumbnail: "",
+        thumbnail: "php-plain",
         extensions: []
     },
     php: {
         name: "PHP",
         syntaxName: "php",
-        thumbnail: "",
+        thumbnail: "php-plain",
         extensions: ['.php', '.php5', '.php7', '.php8']
     },
     phpdoc: {
         name: "PHPDoc",
         syntaxName: "phpdoc",
-        thumbnail: "",
+        thumbnail: "php-plain",
         extensions: []
     },
     plsql: {
@@ -1005,7 +1004,7 @@ export default {
     python: {
         name: "Python",
         syntaxName: "python",
-        thumbnail: "",
+        thumbnail: "python-plain",
         extensions: ['.py']
     },
     q: {
@@ -1029,7 +1028,7 @@ export default {
     r: {
         name: "R",
         syntaxName: "r",
-        thumbnail: "",
+        thumbnail: "r-original",
         extensions: ['.r']
     },
     racket: {
@@ -1083,13 +1082,13 @@ export default {
     ruby: {
         name: "Ruby",
         syntaxName: "ruby",
-        thumbnail: "",
+        thumbnail: "ruby-plain",
         extensions: ['.rb']
     },
     rust: {
         name: "Rust",
         syntaxName: "rust",
-        thumbnail: "",
+        thumbnail: "rust-plain",
         extensions: ['.rs', '.rlib']
     },
     sas: {
@@ -1101,13 +1100,13 @@ export default {
     sass: {
         name: "SASS",
         syntaxName: "sass",
-        thumbnail: "",
+        thumbnail: "sass-original",
         extensions: ['.sass']
     },
     scala: {
         name: "Scala",
         syntaxName: "scala",
-        thumbnail: "",
+        thumbnail: "scala-plain",
         extensions: ['.scala']
     },
     scheme: {
@@ -1203,13 +1202,13 @@ export default {
     stylus: {
         name: "Stylus",
         syntaxName: "stylus",
-        thumbnail: "",
+        thumbnail: "stylus-original",
         extensions: []
     },
     swift: {
         name: "Swift",
         syntaxName: "swift",
-        thumbnail: "",
+        thumbnail: "swift-plain",
         extensions: ['.swift']
     },
     t4Cs: {
@@ -1263,7 +1262,7 @@ export default {
     tsx: {
         name: "TSX",
         syntaxName: "tsx",
-        thumbnail: "",
+        thumbnail: "react-original",
         extensions: ['.tsx']
     },
     tt2: {
@@ -1281,7 +1280,7 @@ export default {
     typescript: {
         name: "TypeScript",
         syntaxName: "typescript",
-        thumbnail: "",
+        thumbnail: "typescript-plain",
         extensions: ['.ts', 'tsx']
     },
     typoscript: {
@@ -1305,7 +1304,7 @@ export default {
     vbnet: {
         name: "VB.net",
         syntaxName: "vbnet",
-        thumbnail: "",
+        thumbnail: "visualstudio-plain",
         extensions: ['.vb']
     },
     velocity: {
@@ -1335,7 +1334,7 @@ export default {
     visualBasic: {
         name: "VisualBasic",
         syntaxName: "visualBasic",
-        thumbnail: "",
+        thumbnail: "visualstudio-plain",
         extensions: ['.vb']
     },
     warpscript: {
@@ -1397,5 +1396,24 @@ export default {
         syntaxName: "zig",
         thumbnail: "",
         extensions: ['.zig']
+    },
+    packagejson: {
+        name: "JSON",
+        syntaxName: "json",
+        thumbnail: "npm-original-wordmark",
+        extensions: ['package.json']
+    },
+    yarnlock: {
+        name: "JSON",
+        syntaxName: "json",
+        thumbnail: "yarn-plain",
+        extensions: ['yarn.lock']
+    },
+    packagelockjson: {
+        name: "JSON",
+        syntaxName: "json",
+        thumbnail: "npm-original-wordmark",
+        extensions: ['package-lock.json']
     }
+
 }

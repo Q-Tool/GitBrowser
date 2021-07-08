@@ -25,13 +25,13 @@ body {
 .mainView > div {
     color: #FFF;
     flex-grow: 1;
-    padding: 10px;
 }
 
 .mainView > div:first-child{
     max-width: 350px;
     background: #454545;
     border-right: 1px #454545 solid;
+    padding: 10px 0px 0px 10px;
 }
 
 .sidebar{
@@ -44,26 +44,68 @@ body {
     overflow: auto;
 }
 
+.sidebar-content::-webkit-scrollbar{
+    width: 6px;
+}
+
+.sidebar-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.sidebar-content::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 3px;
+}
+
 .sidebar-item{
     cursor: pointer;
     display: flex;
     flex-direction: row;
     align-items: center;
     color: #BBB;
+    height: 28px;
+}
+
+.sidebar-item-icon{
+    padding-right: 3px;
+    width: 28px;
+    text-align: center;
+    vertical-align: center;
+}
+
+.sidebar-item-name{
+    display: flex;
+    align-items: center;
 }
 
 .contentContainer{
-    min-height: 100%;
-    max-height: 100%;
-    min-width: 100%;
-    max-width: 100%;
     overflow: auto;
+    display: flex;
+    padding: 0px;
+    margin: 0px;
 }
 
 .code-view{
+    flex-grow: 1;
+    padding: 0px;
+    margin: 0px;
     overflow: auto;
-    min-height: 100%;
-    max-height: 100%;
-    min-width: 100%;
-    max-width: 100%;
+}
+
+.code-view::-webkit-scrollbar{
+    width: 6px;
+}
+
+.code-view::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.code-view::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 3px;
+}
+
+.react-syntax-highlighter-line-number{
+    border-right: 1px #888888 solid;
+    margin-right: 10px;
 }

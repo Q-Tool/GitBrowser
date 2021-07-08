@@ -2,6 +2,8 @@ import React, {Component} from "react";
 import GlobalState from "../State/GlobalState";
 import {view} from '@risingstack/react-easy-state'
 import {Folder as FolderIcon, Description as FileIcon} from "@material-ui/icons";
+import language_identify from "../lib/language_identify";
+import Langicon from "./Langicon";
 
 class SidebarDirectory extends Component {
 
@@ -58,9 +60,17 @@ class SidebarDirectory extends Component {
                 </>
             );
         } else {
+            let icon = <FileIcon />
+            if(obj.name){
+                const filetype = language_identify(obj.path);
+                if(filetype.thumbnail){
+                    icon = <Langicon icon={filetype.thumbnail} />;
+                }
+            }
+
             return (
                 <div className='sidebar-item sidebar-file' onClick={() => GlobalState.getFileContents(obj.path)}>
-                    <div className='sidebar-item-icon'><FileIcon /></div>
+                    <div className='sidebar-item-icon'>{icon}</div>
                     <div className='sidebar-item-name'>{obj.name}</div>
                 </div>
             );

@@ -1,4 +1,5 @@
 import './App.css'
+import 'devicon/devicon.min.css';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import purple from '@material-ui/core/colors/purple';
 import {view} from '@risingstack/react-easy-state'

@@ -7,7 +7,7 @@ import { darcula } from 'react-syntax-highlighter/dist/esm/styles/prism';
 const Content = () => {
     if(GlobalState.currentFile){
         return (
-            <SyntaxHighlighter className='code-view' style={darcula} language={GlobalState.currentFileType}>
+            <SyntaxHighlighter showLineNumbers={true} className='code-view' style={darcula} language={GlobalState.currentFileType}>
                 {GlobalState.currentFile}
             </SyntaxHighlighter>
         );

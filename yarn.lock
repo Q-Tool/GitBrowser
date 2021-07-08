@@ -4405,6 +4405,11 @@ detect-port-alt@1.1.6:
     address "^1.0.1"
     debug "^2.6.0"
 
+devicon@^2.12.0:
+  version "2.12.0"
+  resolved "https://registry.yarnpkg.com/devicon/-/devicon-2.12.0.tgz#a67b0defe9cff36c4c299823a4e13feb445cc46d"
+  integrity sha512-65ptoclWlugK3lNmamqrHZY2gg4FVGZamDoQT4uGSzQ1dQNMmGVughbrumVUrvC4RrfK0UQMgX10+B+BSY4NCQ==
+
 diff-sequences@^26.6.2:
   version "26.6.2"
   resolved "https://registry.yarnpkg.com/diff-sequences/-/diff-sequences-26.6.2.tgz#48ba99157de1923412eed41db6b6d4aa9ca7c0b1"
