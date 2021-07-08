@@ -8,13 +8,18 @@ import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import SyncIcon from '@material-ui/icons/Sync';
+import AddIcon from '@material-ui/icons/Add';
+
+import ChangeHistoryIcon from '@material-ui/icons/ChangeHistory';
+import AccountTreeIcon from '@material-ui/icons/AccountTree';
 
 
 const TreeSelection = () => {
     return (
         <ButtonGroup size="small">
-            <Button variant="contained">Current Tree</Button>
-            <Button>Diff Tree</Button>
+            <Button variant="contained"><AccountTreeIcon /></Button>
+            <Button><ChangeHistoryIcon /></Button>
         </ButtonGroup>
     );
 }
@@ -35,7 +40,8 @@ const Sidebar = () => {
                         <div style={{flexGrow: 1, textAlign: "right"}}>
                             {showOptions && (
                                 <ButtonGroup size="small">
-                                    <Button>+</Button>
+                                    <Button><SyncIcon /></Button>
+                                    <Button><AddIcon /></Button>
                                 </ButtonGroup>
                             )}
                             {!showOptions && (

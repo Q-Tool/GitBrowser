@@ -63,7 +63,7 @@ body {
     flex-direction: row;
     align-items: center;
     color: #BBB;
-    height: 28px;
+    height: 20px;
 }
 
 .sidebar-item-icon{
@@ -71,11 +71,35 @@ body {
     width: 28px;
     text-align: center;
     vertical-align: center;
+    font-size: 12px;
+}
+
+.sidebar-item-icon svg {
+    height: 20px;
+}
+
+.sidebar-item-caret {
+    width: 20px;
+}
+
+.sidebar-item-caret svg {
+    height: 20px;
 }
 
 .sidebar-item-name{
     display: flex;
     align-items: center;
+    font-size: 13px;
+    flex-grow: 1;
+    padding-right: 8px;
+}
+
+.sidebar-item-name-name{
+    flex-grow: 1;
+}
+
+.sidebar-item-filesize{
+    text-align: right;
 }
 
 .contentContainer{
