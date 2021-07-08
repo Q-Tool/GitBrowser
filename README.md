@@ -37,6 +37,8 @@ If you'd like to jump in on the action, these are the items currently on the roa
     - [x] ~~Syntax Highlighting~~
     - [ ] Multiple files
  - [ ] Change commits
+   - [x] ~~Show history~~
+   - [ ] Checkout previous commit
  - [ ] Diff preview
  - [ ] Navigate Repository tags
  - [ ] Production Release
