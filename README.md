@@ -22,19 +22,19 @@ may be added in the future.
 If you'd like to jump in on the action, these are the items currently on the roadmap. Your help will be greatly appreciated.
 
  - [ ] Clone Git repositories
-   - [x] IPC created to clone repository
+   - [x] ~~IPC created to clone repository~~
    - [ ] UI to add a new repository
  - [ ] Pull Git Updates
  - [ ] Delete Repository
- - [x] Change branches within a repository
- - [x] Browse files within a repository
+ - [x] ~~Change branches within a repository~~
+ - [x] ~~Browse files within a repository~~
  - [ ] Create workspaces
-    - [x] IPC to create initial workspace
+    - [x] ~~IPC to create initial workspace~~
     - [ ] UI to tell the user they need to create a workspace
     - [ ] Multiple workspaces
  - [ ] Open Files within repository
-    - [x] Single files
-    - [x] Syntax Highlighting
+    - [x] ~~Single files~~
+    - [x] ~~Syntax Highlighting~~
     - [ ] Multiple files
  - [ ] Change commits
  - [ ] Diff preview
