@@ -40,7 +40,7 @@ const Sidebar = () => {
                         <div style={{flexGrow: 1, textAlign: "right"}}>
                             {showOptions && (
                                 <ButtonGroup size="small">
-                                    <Button><SyncIcon /></Button>
+                                    <Button onClick={() => { GlobalState.gitPull() }}><SyncIcon /></Button>
                                     <Button><AddIcon /></Button>
                                 </ButtonGroup>
                             )}

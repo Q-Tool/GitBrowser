@@ -24,7 +24,7 @@ If you'd like to jump in on the action, these are the items currently on the roa
  - [ ] Clone Git repositories
    - [x] ~~IPC created to clone repository~~
    - [ ] UI to add a new repository
- - [ ] Pull Git Updates
+ - [x] ~~Pull Git Updates~~
  - [ ] Delete Repository
  - [x] ~~Change branches within a repository~~
  - [x] ~~Browse files within a repository~~

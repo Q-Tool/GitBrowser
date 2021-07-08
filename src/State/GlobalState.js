@@ -76,6 +76,14 @@ const GlobalState = datastore({
             });
         }
     },
+    gitPull: async () => {
+        if(GlobalState.currentRepo && GlobalState.currentBranch){
+            LoaderState.addLoader('Git Pull', async () => {
+                await IPC.gitPull({repo: GlobalState.currentRepo});
+                await GlobalState.getFiles();
+            });
+        }
+    },
     getFiles: async () => {
         LoaderState.addLoader('Getting File List',async () => {
             GlobalState.directoryTree = await IPC.getFileList({repo: GlobalState.currentRepo});
