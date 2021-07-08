@@ -133,3 +133,16 @@ body {
     border-right: 1px #888888 solid;
     margin-right: 10px;
 }
+
+.ReactVirtualized__Table__Grid::-webkit-scrollbar{
+    width: 6px;
+}
+
+.ReactVirtualized__Table__Grid::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.ReactVirtualized__Table__Grid::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 3px;
+}

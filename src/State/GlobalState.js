@@ -4,10 +4,6 @@ import IPC from '../IPC/index'
 import LoaderState from "./LoaderState";
 import language_identify from "../lib/language_identify";
 
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
-
 const GlobalState = datastore({
     repos: [],
     branches: [],
@@ -17,6 +13,8 @@ const GlobalState = datastore({
     workdir: null,
     currentFile: null,
     currentFileType: 'text',
+    commitHistory: [],
+    showCommitHistory: false,
     init: async() => {
         let workDir = await store.get('workdir');
         if(!workDir){
@@ -30,8 +28,9 @@ const GlobalState = datastore({
         const lastRepo = await store.get('lastRepo');
         GlobalState.currentRepo = lastRepo ? lastRepo : null;
         if(GlobalState.currentRepo){
-            await GlobalState.getBranches();
-            await GlobalState.getFiles();
+            GlobalState.getBranches();
+            GlobalState.getFiles();
+            GlobalState.gitLog();
         }
     },
     getRepos: async () => {
@@ -47,7 +46,7 @@ const GlobalState = datastore({
         LoaderState.addLoader('Adding Repo', async() => {
             await IPC.cloneRepo({repo: url});
             GlobalState.repos = [];
-            await GlobalState.getRepos();
+            GlobalState.getRepos();
         });
     },
     setRepo: async (repo) => {
@@ -55,8 +54,9 @@ const GlobalState = datastore({
             LoaderState.addLoader('Setting Repo', async() => {
                 GlobalState.currentRepo = repo;
                 await store.set('lastRepo', repo);
-                await GlobalState.getBranches();
-                await GlobalState.getFiles();
+                GlobalState.getBranches();
+                GlobalState.getFiles();
+                GlobalState.gitLog();
             });
         }
     },
@@ -72,7 +72,8 @@ const GlobalState = datastore({
             LoaderState.addLoader('Setting Branch', async () => {
                 GlobalState.currentBranch = branch;
                 await IPC.gitCheckout({repo: GlobalState.currentRepo, branch: branch});
-                await GlobalState.getFiles();
+                GlobalState.getFiles();
+                GlobalState.gitLog();
             });
         }
     },
@@ -80,14 +81,19 @@ const GlobalState = datastore({
         if(GlobalState.currentRepo && GlobalState.currentBranch){
             LoaderState.addLoader('Git Pull', async () => {
                 await IPC.gitPull({repo: GlobalState.currentRepo});
-                await GlobalState.getFiles();
+                GlobalState.getFiles();
+                GlobalState.gitLog();
             });
         }
+    },
+    gitLog: async () => {
+        LoaderState.addLoader('Getting Log', async() => {
+            GlobalState.commitHistory = (await IPC.gitLog({repo: GlobalState.currentRepo})).all;
+        });
     },
     getFiles: async () => {
         LoaderState.addLoader('Getting File List',async () => {
             GlobalState.directoryTree = await IPC.getFileList({repo: GlobalState.currentRepo});
-            console.log(GlobalState.directoryTree)
         })
     },
     getFileContents: async (file) => {

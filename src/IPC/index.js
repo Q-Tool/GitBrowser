@@ -19,6 +19,7 @@ const IPCHandler = {
         "getBranches",
         "repoStatus",
         "gitCheckout",
+        "gitLog",
         "gitPull",
         "getFileList",
         "getFileContent"

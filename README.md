@@ -40,3 +40,7 @@ If you'd like to jump in on the action, these are the items currently on the roa
  - [ ] Diff preview
  - [ ] Navigate Repository tags
  - [ ] Production Release
+
+This project is currently seeking graphics designers to design icons for each of the different supported programming
+languages. The project is currently using an icon set that gets the majority of the popular icons, not all of them.
+I would like to add some color to the UI, but I'm definitely not a graphics person.

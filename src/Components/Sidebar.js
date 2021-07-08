@@ -13,6 +13,7 @@ import AddIcon from '@material-ui/icons/Add';
 
 import ChangeHistoryIcon from '@material-ui/icons/ChangeHistory';
 import AccountTreeIcon from '@material-ui/icons/AccountTree';
+import HistoryIcon from '@material-ui/icons/History';
 
 
 const TreeSelection = () => {
@@ -40,6 +41,7 @@ const Sidebar = () => {
                         <div style={{flexGrow: 1, textAlign: "right"}}>
                             {showOptions && (
                                 <ButtonGroup size="small">
+                                    <Button onClick={() => { GlobalState.showCommitHistory = true }}><HistoryIcon /></Button>
                                     <Button onClick={() => { GlobalState.gitPull() }}><SyncIcon /></Button>
                                     <Button><AddIcon /></Button>
                                 </ButtonGroup>

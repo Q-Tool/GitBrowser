@@ -11,6 +11,7 @@ import {Component} from "react";
 import IPC from "./IPC";
 import GlobalState from "./State/GlobalState";
 import Content from "./Components/Content";
+import CommitHistory from './Components/CommitHistory'
 
 const theme = createMuiTheme({
     palette: {
@@ -51,6 +52,7 @@ class App extends Component{
                         </div>
                     </div>
                 </div>
+                <CommitHistory />
                 <Loader />
             </ThemeProvider>
         );
