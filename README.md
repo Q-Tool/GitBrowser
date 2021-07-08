@@ -1,70 +1,42 @@
-# Getting Started with Create React App
+# Q-Tool GitBrowser
+This project was created with an aim of browsing git Repositories easier. The idea is, you should be able to clone a Git
+repository, preview the files, traverse through the history and see how the project was created. This tool is to be used
+as a tool to help people learn how the code we use every day came to be.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This tool will be useful for beginner and experienced developers alike, allowing you to step through repositories with
+a single click of a button, without having to navigate the history on your repository management software.
 
-## Available Scripts
+## Word of caution, disclaimer
+This is still very much in active development, there are no warranties with this software. It is not recommended to use
+this software on live repositories (Code you are currently working on). Features WILL change as code is getting finalized.
 
-In the project directory, you can run:
+All being said, if you do use this software, please setup a workspace that is not in the same directory as your active
+projects. This project requires a git repository to be initialized before you can use it, meaning you cannot import
+projects that do not have a git repository and expect this software to work.
 
-### `yarn start`
+This tool is only meant to be a read only tool. It is not meant to replace your IDE, although some code editing features
+may be added in the future.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Roadmap - No particular order
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+If you'd like to jump in on the action, these are the items currently on the roadmap. Your help will be greatly appreciated.
 
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+ - [ ] Clone Git repositories
+   - [x] IPC created to clone repository
+   - [ ] UI to add a new repository
+ - [ ] Pull Git Updates
+ - [ ] Delete Repository
+ - [x] Change branches within a repository
+ - [x] Browse files within a repository
+ - [ ] Create workspaces
+    - [x] IPC to create initial workspace
+    - [ ] UI to tell the user they need to create a workspace
+    - [ ] Multiple workspaces
+ - [ ] Open Files within repository
+    - [x] Single files
+    - [x] Syntax Highlighting
+    - [ ] Multiple files
+ - [ ] Change commits
+ - [ ] Diff preview
+ - [ ] Navigate Repository tags
+ - [ ] Production Release
