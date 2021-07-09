@@ -47,6 +47,8 @@ const GlobalState = datastore({
 
                 if(storedCommit && storedCommit !== ''){ // restore the current commit
                     await GlobalState.setCommit(storedCommit);
+                } else {
+                    await GlobalState.getFiles();
                 }
 
             });
@@ -99,6 +101,7 @@ const GlobalState = datastore({
                 await IPC.gitCheckout({repo: GlobalState.currentRepo, branch: branch});
                 GlobalState.getFiles();
                 GlobalState.gitLog();
+                GlobalState.setCanTraverse();
             });
         }
         return null;
@@ -143,6 +146,7 @@ const GlobalState = datastore({
             if(index === 0){ // Shouldn't be setting to a commit, but rather the branch
                 return GlobalState.setBranch(GlobalState.currentBranch);
             }
+            GlobalState.setCanTraverse();
 
 
             return LoaderState.addLoader('Setting Commit', async () => {
@@ -157,18 +161,7 @@ const GlobalState = datastore({
     gitLog: async () => {
         return LoaderState.addLoader('Getting Log', async() => {
             GlobalState.commitHistory = (await IPC.gitLog({repo: GlobalState.currentRepo})).all;
-
-            let index = 0;
-            const currentCommit = await store.get(`${GlobalState.currentRepo}.currentCommit`);
-            for(const commitItem of GlobalState.commitHistory){
-                if(commitItem.hash === currentCommit){
-                    break;
-                }
-                index++;
-            }
-
-            GlobalState.canTraverseForward = index !== 0;
-            GlobalState.canTraverseBackward = GlobalState.commitHistory.length - 1 > index;
+            GlobalState.setCanTraverse();
         });
     },
     getFiles: async () => {
@@ -183,6 +176,22 @@ const GlobalState = datastore({
             });
             GlobalState.currentFileType = language_identify(file).syntaxName;
         })
+    },
+    setCanTraverse: async () => {
+        let index = 0;
+
+        const currentCommit = await store.get(`${GlobalState.currentRepo}.currentCommit`);
+        if(currentCommit){
+            for(const commit of GlobalState.commitHistory){
+                if(commit.hash === currentCommit){
+                    break;
+                }
+                index++;
+            }
+        }
+
+        GlobalState.canTraverseForward = index !== 0;
+        GlobalState.canTraverseBackward = GlobalState.commitHistory.length - 1 > index;
     },
     // negative integer goes backwards that amount, positive integer goes forward that amount. Zero resets to head of branch
     traverseHistory: async (amount) => {
@@ -205,8 +214,7 @@ const GlobalState = datastore({
         // Forward through time is backward through the array, backward through time is forward in the array. It's flipped!
         const calculatedIndex = index - amount;
 
-        GlobalState.canTraverseForward = calculatedIndex !== 0;
-        GlobalState.canTraverseBackward = GlobalState.commitHistory.length - 1 > calculatedIndex;
+        await GlobalState.setCanTraverse();
 
         if(calculatedIndex <= 0){ // Setting back to head (The end of history)
             return GlobalState.setBranch(GlobalState.currentBranch);
