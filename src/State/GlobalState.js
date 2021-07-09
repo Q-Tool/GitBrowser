@@ -15,7 +15,10 @@ const GlobalState = datastore({
     currentFileType: 'text',
     commitHistory: [],
     showCommitHistory: false,
+    currentCommit: '',
     init: async() => {
+
+
         let workDir = await store.get('workdir');
         if(!workDir){
             workDir = (await IPC.askWorkDir()).filePaths[0];
@@ -28,9 +31,25 @@ const GlobalState = datastore({
         const lastRepo = await store.get('lastRepo');
         GlobalState.currentRepo = lastRepo ? lastRepo : null;
         if(GlobalState.currentRepo){
-            GlobalState.getBranches();
-            GlobalState.getFiles();
-            GlobalState.gitLog();
+            LoaderState.addLoader('Restoring', async () => {
+                const storedCommit = await store.get(`${GlobalState.currentRepo}.currentCommit`);
+                const storedBranch = await store.get(`${GlobalState.currentRepo}.currentBranch`);
+                await GlobalState.getBranches();
+
+                if(storedBranch && storedBranch !== ''){ // Because we're on a commit, checkout the stored branch
+                    await IPC.gitCheckout({repo: GlobalState.currentRepo, branch: storedBranch});
+                }
+
+                //await GlobalState.gitPull(); // Pull any changes to the repository
+                await GlobalState.gitLog(); // Get the commit history while we're here
+
+                if(storedCommit && storedCommit !== ''){ // restore the current commit
+
+
+                    await GlobalState.setCommit(storedCommit);
+                }
+
+            });
         }
     },
     getRepos: async () => {
@@ -61,7 +80,7 @@ const GlobalState = datastore({
         }
     },
     getBranches: async () => {
-        LoaderState.addLoader('Getting Branches', async () => {
+        return LoaderState.addLoader('Getting Branches', async () => {
             const branchData = await IPC.getBranches({repo: GlobalState.currentRepo});
             GlobalState.branches = branchData.all;
             const storedBranch = await store.get(`${GlobalState.currentRepo}.currentBranch`);
@@ -70,35 +89,59 @@ const GlobalState = datastore({
     },
     setBranch: async (branch) => {
         if(branch){
-            LoaderState.addLoader('Setting Branch', async () => {
+            return LoaderState.addLoader('Setting Branch', async () => {
+                // These variables are only used when the head is not on the branch (unset them)
+                await store.set(`${GlobalState.currentRepo}.currentBranch`, null);
+                await store.set(`${GlobalState.currentRepo}.currentCommit`, null);
+
+                // This will checkout the branch
                 GlobalState.currentBranch = branch;
                 await IPC.gitCheckout({repo: GlobalState.currentRepo, branch: branch});
                 GlobalState.getFiles();
                 GlobalState.gitLog();
             });
         }
+        return null;
     },
     gitPull: async () => {
         if(GlobalState.currentRepo && GlobalState.currentBranch){
-            LoaderState.addLoader('Git Pull', async () => {
+            return LoaderState.addLoader('Git Pull', async () => {
+                const storedBranch = await store.get(`${GlobalState.currentRepo}.currentBranch`);
+                const currentCommit = await store.get(`${GlobalState.currentRepo}.currentCommit`);
+
+                // Because we have a commit checked out, we need to checkout our last branch
+                if(storedBranch){
+                    await IPC.gitCheckout({repo: GlobalState.currentRepo, branch: storedBranch});
+                }
+
+                // Pull the branch (Getting needed data while we're here)
                 await IPC.gitPull({repo: GlobalState.currentRepo});
-                GlobalState.getBranches();
-                GlobalState.getFiles();
-                GlobalState.gitLog();
+                await GlobalState.getBranches();
+                await GlobalState.gitLog();
+
+                // Restore our commit
+                if(currentCommit){
+                    await IPC.gitCheckout({repo: GlobalState.currentRepo, branch: GlobalState.currentCommit});
+                }
+
+                await GlobalState.getFiles();
             });
         }
+        return null;
     },
     setCommit: async (commit) => {
         if(commit){
             LoaderState.addLoader('Setting Commit', async () => {
-                await store.set(`${GlobalState.currentRepo}.currentBranch`, GlobalState.currentBranch)
+                await store.set(`${GlobalState.currentRepo}.currentBranch`, GlobalState.currentBranch);
+                await store.set(`${GlobalState.currentRepo}.currentCommit`, commit);
+                GlobalState.currentCommit = commit;
                 await IPC.gitCheckout({repo: GlobalState.currentRepo, branch: commit});
                 GlobalState.getFiles();
             });
         }
     },
     gitLog: async () => {
-        LoaderState.addLoader('Getting Log', async() => {
+        return LoaderState.addLoader('Getting Log', async() => {
             GlobalState.commitHistory = (await IPC.gitLog({repo: GlobalState.currentRepo})).all;
         });
     },

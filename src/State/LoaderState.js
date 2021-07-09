@@ -3,7 +3,7 @@ import cuid from 'cuid'
 
 const LoaderState = store({
     loaders: [],
-    addLoader: (title, method) => {
+    addLoader: async (title, method) => {
         const id = cuid();
         LoaderState.loaders.push({
             id: id,
@@ -14,7 +14,7 @@ const LoaderState = store({
             await method();
             LoaderState.removeLoader(id);
         }
-        loader();
+        return loader();
     },
     removeLoader: (id) => {
         const newLoaders = [];
