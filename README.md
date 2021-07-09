@@ -40,6 +40,7 @@ If you'd like to jump in on the action, these are the items currently on the roa
    - [x] ~~Show history~~
    - [x] ~~Checkout previous commit~~
    - [x] ~~Back and forward buttons to make traversing commits easier~~
+   - [x] ~~Show change log~~
  - [ ] Diff preview
  - [ ] Navigate Repository tags
  - [ ] Production Release
