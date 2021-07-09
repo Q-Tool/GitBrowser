@@ -146,7 +146,6 @@ const GlobalState = datastore({
             if(index === 0){ // Shouldn't be setting to a commit, but rather the branch
                 return GlobalState.setBranch(GlobalState.currentBranch);
             }
-            GlobalState.setCanTraverse();
 
 
             return LoaderState.addLoader('Setting Commit', async () => {
@@ -154,6 +153,7 @@ const GlobalState = datastore({
                 await store.set(`${GlobalState.currentRepo}.currentCommit`, commit);
                 GlobalState.currentCommit = commit;
                 await IPC.gitCheckout({repo: GlobalState.currentRepo, branch: commit});
+                GlobalState.setCanTraverse();
                 GlobalState.getFiles();
             });
         }
@@ -213,8 +213,6 @@ const GlobalState = datastore({
 
         // Forward through time is backward through the array, backward through time is forward in the array. It's flipped!
         const calculatedIndex = index - amount;
-
-        await GlobalState.setCanTraverse();
 
         if(calculatedIndex <= 0){ // Setting back to head (The end of history)
             return GlobalState.setBranch(GlobalState.currentBranch);
