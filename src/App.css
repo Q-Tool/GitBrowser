@@ -102,6 +102,20 @@ body {
     text-align: right;
 }
 
+.sidebar-item-diff{
+    display: flex;
+    align-items: end;
+}
+
+.sidebar-item-lines-added{
+    color: greenyellow;
+    padding-right: 5px;
+}
+
+.sidebar-item-lines-removed{
+    color: palevioletred;
+}
+
 .contentContainer{
     overflow: auto;
     display: flex;

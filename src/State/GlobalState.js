@@ -3,11 +3,13 @@ import store from "../IPC/client/store";
 import IPC from '../IPC/index'
 import LoaderState from "./LoaderState";
 import language_identify from "../lib/language_identify";
+import path from 'path'
 
 const GlobalState = datastore({
     repos: [],
     branches: [],
     directoryTree: {},
+    diffTree: {},
     currentRepo: null,
     currentBranch: null,
     workdir: null,
@@ -134,14 +136,7 @@ const GlobalState = datastore({
     },
     setCommit: async (commit) => {
         if(commit){
-            let index = 0;
-            const currentCommit = await store.get(`${GlobalState.currentRepo}.currentCommit`);
-            for(const commitItem of GlobalState.commitHistory){
-                if(commitItem.hash === currentCommit){
-                    break;
-                }
-                index++;
-            }
+            const index = await GlobalState.findCommitIndex(commit);
 
             if(index === 0){ // Shouldn't be setting to a commit, but rather the branch
                 return GlobalState.setBranch(GlobalState.currentBranch);
@@ -167,6 +162,7 @@ const GlobalState = datastore({
     getFiles: async () => {
         LoaderState.addLoader('Getting File List',async () => {
             GlobalState.directoryTree = await IPC.getFileList({repo: GlobalState.currentRepo});
+            GlobalState.getDiff();
         })
     },
     getFileContents: async (file) => {
@@ -177,10 +173,78 @@ const GlobalState = datastore({
             GlobalState.currentFileType = language_identify(file).syntaxName;
         })
     },
-    setCanTraverse: async () => {
+    getDiff: async () => {
+        return LoaderState.addLoader('Getting Diff', async () => {
+            const index = await GlobalState.findCommitIndex();
+
+            const commit = index === GlobalState.commitHistory.length - 1 ?
+                "4b825dc642cb6eb9a060e54bf8d69288fbee4904" : // This commit hash is the same regardless of the repo, it represents the empty tree
+                GlobalState.commitHistory[index + 1].hash;
+
+            // Now that we have a diff that we can use, we need to build a directory tree.
+            const diff = await IPC.gitDiff({repo: GlobalState.currentRepo, commit: commit});
+
+            const diffList = {
+                children: [],
+                isDirectory: true,
+                name: GlobalState.currentRepo,
+                parentDirectory: GlobalState.workdir,
+                path: path.join(GlobalState.workdir, GlobalState.currentRepo)
+            };
+
+            diff.files.forEach((file) => {
+                GlobalState.fromDiffToTree(file, diffList);
+            });
+
+            GlobalState.diffTree = diffList;
+        });
+    },
+    fromDiffToTree: (file, parent) => {
+        const fileParts = file.file.split(path.sep);
+        const nextFilePart = fileParts.shift();
+        file.file = fileParts.join(path.sep);
+
+        if(fileParts.length >= 1){ // This is a directory
+            // check if new child already exists
+            let childIndex = -1;
+            parent.children.forEach((child, index) => {
+                if(child.name === nextFilePart){
+                    childIndex = index; // it already exists!!!
+                }
+            });
+
+            if(childIndex === -1){
+                const newChild = {
+                    children: [],
+                    isDirectory: true,
+                    name: nextFilePart,
+                    parentDirectory: parent.path,
+                    path: path.join(parent.path, nextFilePart)
+                }
+                parent.children.push(newChild);
+                GlobalState.fromDiffToTree(file, newChild);
+            } else {
+                GlobalState.fromDiffToTree(file, parent.children[childIndex]);
+            }
+        } else { // Adding a file
+            const newChild = {
+                isDirectory: false,
+                name: nextFilePart,
+                parentDirectory: parent.path,
+                path: path.join(parent.path, nextFilePart),
+                changes: file.changes,
+                insertions: file.insertions,
+                deletions: file.deletions,
+                binary: file.binary
+            }
+            parent.children.push(newChild);
+        }
+
+    },
+    findCommitIndex: async (commit = null) => {
         let index = 0;
 
-        const currentCommit = await store.get(`${GlobalState.currentRepo}.currentCommit`);
+        const currentCommit = commit ? commit : await store.get(`${GlobalState.currentRepo}.currentCommit`);
         if(currentCommit){
             for(const commit of GlobalState.commitHistory){
                 if(commit.hash === currentCommit){
@@ -189,7 +253,10 @@ const GlobalState = datastore({
                 index++;
             }
         }
-
+        return index;
+    },
+    setCanTraverse: async () => {
+        const index = await GlobalState.findCommitIndex();
         GlobalState.canTraverseForward = index !== 0;
         GlobalState.canTraverseBackward = GlobalState.commitHistory.length - 1 > index;
     },
@@ -199,17 +266,7 @@ const GlobalState = datastore({
             return GlobalState.setBranch(GlobalState.currentBranch);
         }
 
-        let index = 0;
-
-        const currentCommit = await store.get(`${GlobalState.currentRepo}.currentCommit`);
-        if(currentCommit){
-            for(const commit of GlobalState.commitHistory){
-                if(commit.hash === currentCommit){
-                    break;
-                }
-                index++;
-            }
-        }
+        const index = await GlobalState.findCommitIndex();
 
         // Forward through time is backward through the array, backward through time is forward in the array. It's flipped!
         const calculatedIndex = index - amount;

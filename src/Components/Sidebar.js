@@ -17,15 +17,17 @@ import HistoryIcon from '@material-ui/icons/History';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import FastForwardIcon from '@material-ui/icons/FastForward';
+import SidebarDiffDirectory from "./SidebarDiffDirectory";
 
 const Sidebar = () => {
     const [showOptions, setShowOptions] = useState(true);
+    const [showDiff, setShowDiff] = useState(false);
 
     const TreeSelection = () => {
         return (
             <ButtonGroup size="small">
-                <Button variant="contained"><AccountTreeIcon /></Button>
-                <Button><ChangeHistoryIcon /></Button>
+                <Button variant={showDiff ? "outlined" : "contained"} onClick={() => setShowDiff(false)}><AccountTreeIcon /></Button>
+                <Button variant={showDiff ? "contained" : "outlined"} onClick={() => setShowDiff(true)}><ChangeHistoryIcon /></Button>
 
                 {!showOptions && <Button onClick={() => GlobalState.traverseHistory(-1)} disabled={!GlobalState.canTraverseBackward}><ChevronLeftIcon /></Button>}
                 {!showOptions && <Button onClick={() => GlobalState.traverseHistory(1)} disabled={!GlobalState.canTraverseForward}><ChevronRightIcon /></Button>}
@@ -90,7 +92,12 @@ const Sidebar = () => {
                     )}
                 </div>
                 <div className='sidebar-content'>
-                    <SidebarDirectory expanded={true} />
+                    {showDiff ? (
+                        <SidebarDiffDirectory expanded={true} />
+                    ) : (
+                        <SidebarDirectory expanded={true} />
+                    )}
+
                 </div>
             </div>
         </>
