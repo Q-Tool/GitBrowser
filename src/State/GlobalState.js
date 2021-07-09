@@ -16,6 +16,8 @@ const GlobalState = datastore({
     commitHistory: [],
     showCommitHistory: false,
     currentCommit: '',
+    canTraverseForward: false,
+    canTraverseBackward: false,
     init: async() => {
 
 
@@ -44,8 +46,6 @@ const GlobalState = datastore({
                 await GlobalState.gitLog(); // Get the commit history while we're here
 
                 if(storedCommit && storedCommit !== ''){ // restore the current commit
-
-
                     await GlobalState.setCommit(storedCommit);
                 }
 
@@ -131,7 +131,21 @@ const GlobalState = datastore({
     },
     setCommit: async (commit) => {
         if(commit){
-            LoaderState.addLoader('Setting Commit', async () => {
+            let index = 0;
+            const currentCommit = await store.get(`${GlobalState.currentRepo}.currentCommit`);
+            for(const commitItem of GlobalState.commitHistory){
+                if(commitItem.hash === currentCommit){
+                    break;
+                }
+                index++;
+            }
+
+            if(index === 0){ // Shouldn't be setting to a commit, but rather the branch
+                return GlobalState.setBranch(GlobalState.currentBranch);
+            }
+
+
+            return LoaderState.addLoader('Setting Commit', async () => {
                 await store.set(`${GlobalState.currentRepo}.currentBranch`, GlobalState.currentBranch);
                 await store.set(`${GlobalState.currentRepo}.currentCommit`, commit);
                 GlobalState.currentCommit = commit;
@@ -143,6 +157,18 @@ const GlobalState = datastore({
     gitLog: async () => {
         return LoaderState.addLoader('Getting Log', async() => {
             GlobalState.commitHistory = (await IPC.gitLog({repo: GlobalState.currentRepo})).all;
+
+            let index = 0;
+            const currentCommit = await store.get(`${GlobalState.currentRepo}.currentCommit`);
+            for(const commitItem of GlobalState.commitHistory){
+                if(commitItem.hash === currentCommit){
+                    break;
+                }
+                index++;
+            }
+
+            GlobalState.canTraverseForward = index !== 0;
+            GlobalState.canTraverseBackward = GlobalState.commitHistory.length - 1 > index;
         });
     },
     getFiles: async () => {
@@ -157,6 +183,38 @@ const GlobalState = datastore({
             });
             GlobalState.currentFileType = language_identify(file).syntaxName;
         })
+    },
+    // negative integer goes backwards that amount, positive integer goes forward that amount. Zero resets to head of branch
+    traverseHistory: async (amount) => {
+        if(amount === 0){ // Resetting to the branch
+            return GlobalState.setBranch(GlobalState.currentBranch);
+        }
+
+        let index = 0;
+
+        const currentCommit = await store.get(`${GlobalState.currentRepo}.currentCommit`);
+        if(currentCommit){
+            for(const commit of GlobalState.commitHistory){
+                if(commit.hash === currentCommit){
+                    break;
+                }
+                index++;
+            }
+        }
+
+        // Forward through time is backward through the array, backward through time is forward in the array. It's flipped!
+        const calculatedIndex = index - amount;
+
+        GlobalState.canTraverseForward = calculatedIndex !== 0;
+        GlobalState.canTraverseBackward = GlobalState.commitHistory.length - 1 > calculatedIndex;
+
+        if(calculatedIndex <= 0){ // Setting back to head (The end of history)
+            return GlobalState.setBranch(GlobalState.currentBranch);
+        } else if (calculatedIndex >= GlobalState.commitHistory.length - 1){ // The new index is beyond the beginning of history. Set to beginning of history
+            return GlobalState.setCommit(GlobalState.commitHistory[GlobalState.commitHistory.length - 1].hash);
+        } else { // Finally a valid index has been calculated, jump to that commit
+            return GlobalState.setCommit(GlobalState.commitHistory[calculatedIndex].hash);
+        }
     }
 });
 

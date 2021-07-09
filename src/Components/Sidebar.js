@@ -14,19 +14,25 @@ import AddIcon from '@material-ui/icons/Add';
 import ChangeHistoryIcon from '@material-ui/icons/ChangeHistory';
 import AccountTreeIcon from '@material-ui/icons/AccountTree';
 import HistoryIcon from '@material-ui/icons/History';
-
-
-const TreeSelection = () => {
-    return (
-        <ButtonGroup size="small">
-            <Button variant="contained"><AccountTreeIcon /></Button>
-            <Button><ChangeHistoryIcon /></Button>
-        </ButtonGroup>
-    );
-}
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import FastForwardIcon from '@material-ui/icons/FastForward';
 
 const Sidebar = () => {
     const [showOptions, setShowOptions] = useState(true);
+
+    const TreeSelection = () => {
+        return (
+            <ButtonGroup size="small">
+                <Button variant="contained"><AccountTreeIcon /></Button>
+                <Button><ChangeHistoryIcon /></Button>
+
+                {!showOptions && <Button onClick={() => GlobalState.traverseHistory(-1)} disabled={!GlobalState.canTraverseBackward}><ChevronLeftIcon /></Button>}
+                {!showOptions && <Button onClick={() => GlobalState.traverseHistory(1)} disabled={!GlobalState.canTraverseForward}><ChevronRightIcon /></Button>}
+                {!showOptions && <Button onClick={() => GlobalState.traverseHistory(0)} disabled={!GlobalState.canTraverseForward}><FastForwardIcon /></Button>}
+            </ButtonGroup>
+        );
+    }
 
     return (
         <>
@@ -68,8 +74,17 @@ const Sidebar = () => {
                                 renderInput={(params => <TextField {...params} label='Branch' />)}
                                 onChange={(event, newValue) => GlobalState.setBranch(newValue)}
                             />
-                            <div style={{padding: 10, textAlign: "center"}}>
-                                <TreeSelection />
+                            <div style={{display: "flex", flexDirection: "row"}}>
+                                <div style={{padding: 10, textAlign: "left", flexGrow: 1}}>
+                                    <TreeSelection />
+                                </div>
+                                <div style={{padding: 10, textAlign: "right", flexGrow: 1}}>
+                                    {showOptions && <ButtonGroup size="small">
+                                        <Button onClick={() => GlobalState.traverseHistory(-1)} disabled={!GlobalState.canTraverseBackward}><ChevronLeftIcon /></Button>
+                                        <Button onClick={() => GlobalState.traverseHistory(1)} disabled={!GlobalState.canTraverseForward}><ChevronRightIcon /></Button>
+                                        <Button onClick={() => GlobalState.traverseHistory(0)} disabled={!GlobalState.canTraverseForward}><FastForwardIcon /></Button>
+                                    </ButtonGroup>}
+                                </div>
                             </div>
                         </>
                     )}

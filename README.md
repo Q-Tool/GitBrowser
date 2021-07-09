@@ -36,9 +36,10 @@ If you'd like to jump in on the action, these are the items currently on the roa
     - [x] ~~Single files~~
     - [x] ~~Syntax Highlighting~~
     - [ ] Multiple files
- - [ ] Change commits
+ - [x] ~~Change commits~~
    - [x] ~~Show history~~
-   - [ ] Checkout previous commit
+   - [x] ~~Checkout previous commit~~
+   - [x] ~~Back and forward buttons to make traversing commits easier~~
  - [ ] Diff preview
  - [ ] Navigate Repository tags
  - [ ] Production Release
