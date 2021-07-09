@@ -21,6 +21,9 @@ export default view(() => {
                     <VirtualizedTable
                         rowCount={GlobalState.commitHistory.length}
                         rowGetter={({ index }) => GlobalState.commitHistory[index]}
+                        onRowClick={({rowData}) => {
+                            GlobalState.setCommit(rowData.hash)
+                        }}
                         columns={[
                             {
                                 width: 250,

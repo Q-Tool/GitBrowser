@@ -5,6 +5,8 @@ import { withStyles } from '@material-ui/core/styles';
 import TableCell from '@material-ui/core/TableCell';
 import { AutoSizer, Column, Table } from 'react-virtualized';
 import {view} from '@risingstack/react-easy-state'
+import GlobalState from "../../State/GlobalState";
+import _ from 'lodash';
 
 const styles = (theme) => ({
     flexContainer: {
@@ -34,19 +36,24 @@ const styles = (theme) => ({
     noClick: {
         cursor: 'initial',
     },
+    active: {
+        background: '#FFF',
+        color: '#222'
+    }
 });
 
-class MuiVirtualizedTable extends React.PureComponent {
+class MuiVirtualizedTable extends React.Component {
     static defaultProps = {
         headerHeight: 48,
         rowHeight: 48,
     };
 
     getRowClassName = ({ index }) => {
-        const { classes, onRowClick } = this.props;
+        const { classes, onRowClick, activeCommit } = this.props;
 
         return clsx(classes.tableRow, classes.flexContainer, {
             [classes.tableRowHover]: index !== -1 && onRowClick != null,
+            [classes.active]: index !== -1 && _.startsWith(GlobalState.commitHistory[index].hash, activeCommit)
         });
     };
 
@@ -56,7 +63,7 @@ class MuiVirtualizedTable extends React.PureComponent {
             <TableCell
                 component="div"
                 className={clsx(classes.tableCell, classes.flexContainer, {
-                    [classes.noClick]: onRowClick == null,
+                    [classes.noClick]: onRowClick == null
                 })}
                 variant="body"
                 style={{ height: rowHeight }}

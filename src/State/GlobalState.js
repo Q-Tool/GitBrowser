@@ -64,7 +64,8 @@ const GlobalState = datastore({
         LoaderState.addLoader('Getting Branches', async () => {
             const branchData = await IPC.getBranches({repo: GlobalState.currentRepo});
             GlobalState.branches = branchData.all;
-            GlobalState.currentBranch = branchData.current;
+            const storedBranch = await store.get(`${GlobalState.currentRepo}.currentBranch`);
+            GlobalState.currentBranch = storedBranch ? storedBranch : branchData.current;
         });
     },
     setBranch: async (branch) => {
@@ -81,8 +82,18 @@ const GlobalState = datastore({
         if(GlobalState.currentRepo && GlobalState.currentBranch){
             LoaderState.addLoader('Git Pull', async () => {
                 await IPC.gitPull({repo: GlobalState.currentRepo});
+                GlobalState.getBranches();
                 GlobalState.getFiles();
                 GlobalState.gitLog();
+            });
+        }
+    },
+    setCommit: async (commit) => {
+        if(commit){
+            LoaderState.addLoader('Setting Commit', async () => {
+                await store.set(`${GlobalState.currentRepo}.currentBranch`, GlobalState.currentBranch)
+                await IPC.gitCheckout({repo: GlobalState.currentRepo, branch: commit});
+                GlobalState.getFiles();
             });
         }
     },
